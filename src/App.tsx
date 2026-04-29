@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React from 'react';
+import React, { useState, useMemo } from 'react';
 import { Layout } from './components/Layout';
 import { Dashboard } from './views/Dashboard';
 import { ChartOfAccounts } from './views/ChartOfAccounts';
@@ -14,20 +14,20 @@ import { INITIAL_ACCOUNTS } from './constants';
 import { Account, JournalEntry as JournalEntryType, DashboardStats } from './types';
 
 export default function App() {
-  const [activeView, setActiveView] = React.useState('dashboard');
-  const [accounts, setAccounts] = React.useState<Account[]>(INITIAL_ACCOUNTS);
-  const [journals, setJournals] = React.useState<JournalEntryType[]>([]);
+  const [activeView, setActiveView] = useState('dashboard');
+  const [accounts, setAccounts] = useState<Account[]>(INITIAL_ACCOUNTS);
+  const [journals, setJournals] = useState<JournalEntryType[]>([]);
 
   // Calculate stats based on current accounts
-  const stats: DashboardStats = React.useMemo(() => {
+  const stats: DashboardStats = useMemo(() => {
     const totalAssets = accounts
       .filter(a => a.type === 'Asset')
       .reduce((sum, a) => sum + a.balance, 0);
-    
+      
     const totalLiabilities = accounts
-      .filter(a => a.type === 'Liability' && a.category !== 'Social Fund')
+      .filter(a => a.type === 'Liability')
       .reduce((sum, a) => sum + a.balance, 0);
-
+      
     const totalEquity = accounts
       .filter(a => a.type === 'Equity')
       .reduce((sum, a) => sum + a.balance, 0);

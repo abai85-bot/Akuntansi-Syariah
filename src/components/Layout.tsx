@@ -9,7 +9,8 @@ import {
   Settings,
   ChevronRight,
   Menu,
-  X
+  X,
+  LogOut
 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -138,8 +139,6 @@ export const Layout = ({ children, activeView, setActiveView }: LayoutProps) => 
              <div className="bg-white rounded-full px-4 py-2 border border-slate-200 text-[12px] flex items-center gap-2 shadow-sm">
                 <span className="text-slate-500">User:</span> 
                 <span className="font-semibold text-slate-800">Ahmad Bendahara</span>
-                <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-                <span className="font-bold text-emerald-700">24 Sya'ban 1445 H</span>
              </div>
           </div>
         </header>

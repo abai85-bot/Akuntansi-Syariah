@@ -1,0 +1,53 @@
+{
+  "entities": {
+    "account": {
+      "title": "Account",
+      "description": "Chart of Accounts entry",
+      "type": "object",
+      "properties": {
+        "code": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string", "enum": ["Asset", "Liability", "Equity", "Income", "Expense"] },
+        "category": { "type": "string" },
+        "balance": { "type": "number" },
+        "ownerId": { "type": "string" }
+      },
+      "required": ["code", "name", "type", "category", "balance", "ownerId"]
+    },
+    "journalEntry": {
+      "title": "Journal Entry",
+      "description": "General Journal entry",
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "description": { "type": "string" },
+        "reference": { "type": "string" },
+        "items": { 
+          "type": "array",
+          "items": {
+             "type": "object",
+             "properties": {
+               "accountId": { "type": "string" },
+               "debit": { "type": "number" },
+               "credit": { "type": "number" }
+             },
+             "required": ["accountId", "debit", "credit"]
+          }
+        },
+        "ownerId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["date", "description", "items", "ownerId", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/accounts/{accountId}": {
+      "schema": { "$ref": "#/entities/account" },
+      "description": "User's chart of accounts"
+    },
+    "/journals/{journalId}": {
+      "schema": { "$ref": "#/entities/journalEntry" },
+      "description": "User's journal entries"
+    }
+  }
+}
